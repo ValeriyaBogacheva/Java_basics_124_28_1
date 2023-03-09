@@ -19,4 +19,4 @@ public class Main {
         System.out.println(car2.getMark() +" "+ car2.getSeries() +" "+ car2.getColor());
     }
 }
-// Lab_2
+// Lab_02
