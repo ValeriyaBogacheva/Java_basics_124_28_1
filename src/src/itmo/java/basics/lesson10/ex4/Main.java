@@ -9,11 +9,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        String path = "C:/Users/Lenovo/Desktop/ITMO/9. Java/Java_basics_124_28_1/src/src/itmo/java/basics/lesson10/ex4/inoutput.txt";
+        String path = "lesson10/ex4/inoutput.txt";
         List<String> stringList = reader(path);
         System.out.println(stringList);
         stringList = changeList(stringList);
         System.out.println(stringList);
+
         if (writer(stringList, path)) {
             System.out.println("Успешно");
         }
@@ -21,21 +22,27 @@ public class Main {
 
     public static List<String> reader(String path) {
         List<String> stringList = new ArrayList<>();
+        Scanner reader=null;
         try {
             File text = new File(path);
-            Scanner reader = new Scanner(text);
+            reader = new Scanner(text);
             while (reader.hasNextLine()) {
                 stringList.add(reader.nextLine());
             }
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
+        }finally {
+            if(reader != null){
+                reader.close();
+            }
         }
         return stringList;
     }
 
     public static Boolean writer(List<String> list, String path) {
+        FileWriter writer=null;
         try {
-            FileWriter writer = new FileWriter(path, false);
+            writer = new FileWriter(path, false);
 
             for (int i = 0; i < list.size(); i++) {
                 writer.write(list.get(i));
@@ -46,6 +53,14 @@ public class Main {
         } catch (IOException e) {
             System.out.println(e.getMessage());
             return false;
+        }finally {
+            if(writer != null){
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
     }
 

@@ -1,5 +1,7 @@
 package src.itmo.java.basics.lesson9.ex2;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,34 +9,32 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> firstList = new ArrayList<>();    // Задача 2
-        List<Integer> secondList = new LinkedList<>();
-        Random random = new Random();
-
-        long time = System.currentTimeMillis();
-        firstList = addElements(firstList, random);
-        int firstRandomElement = getRandomElement(firstList,random);
-        System.out.println(System.currentTimeMillis() - time + "мс.");
-
-        time = System.currentTimeMillis();
-        secondList = addElements(secondList, random);
-        int secondRandomElement = getRandomElement(secondList,random);
-        System.out.println(System.currentTimeMillis() - time + "мс.");
+        String path = "lesson10/ex2/output.txt";
+        if(writeFile("Java язык программирования",path)){
+            System.out.println("Успешно");
+        }
     }
-    public static List<Integer> addElements(List<Integer> list, Random rand){
-
-        for(int i = 0 ; i < 1000000;i++){
-            list.add(rand.nextInt(100));
+    public static Boolean writeFile(String text,String path){
+        FileWriter writer=null;
+        try
+        {
+            writer = new FileWriter(path, false);
+            writer.write(text);
+            writer.flush();
+            return true;
+        }
+        catch(IOException e){
+            System.out.println(e.getMessage());
+            return false;
+        }finally {
+            if(writer != null){
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
         }
 
-        return list;
     }
-    public  static int getRandomElement(List<Integer> list, Random rand){
-        int randomInt = 0;
-        for(int i = 0 ; i < 100000;i++){
-            randomInt = list.get(rand.nextInt(0,list.size()-1));
-        }
-        return randomInt;
-    }
-
 }

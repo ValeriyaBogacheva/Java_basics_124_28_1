@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         String path = "C:/Users/Lenovo/Desktop/ITMO/9. Java/Java_basics_124_28_1/src/src/itmo/java/basics/lesson10/ex2/output.txt";
-        if(writeFile("Java язык программирования",path)){
+        if(writeFile("Java язык программирования", path)){
             System.out.println("Успешно");
         }
     }
